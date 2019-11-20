@@ -11,10 +11,20 @@ class LinkedList {
     this.size = 0
   }
 
+
+
   addNoteToFront(data) {
     this.head = new Node(data, this.head) //the new node's 'next' will be the given 'this.head' a.k.a you're shifting the old node over
     this.size++
   }
+
+  deleteFrontNode() {
+    let current = this.head
+    this.head = current.next //just go to next node over
+    this.size--
+  }
+
+
 
   addNodeToBack(data) {
     let current = this.head //initialize to beginning
@@ -31,6 +41,20 @@ class LinkedList {
     this.size++
   }
 
+  deleteBackNode() {
+    let current = this.head
+    let previous
+
+    while(current.next) {
+      previous = current
+      current = current.next
+    }
+    previous.next = current.next //skip over the middle node
+    this.size--
+  }
+
+
+
   insertNodeAtIndex(data, index) {
 
     if (index > 0 && index > this.size) {
@@ -43,8 +67,9 @@ class LinkedList {
     let current = this.head
     let count = 0
     let node = new Node(data)
+    let previous
     while (count < index) {
-      let previous = current //node before the index
+      previous = current //node before the index
       current = current.next //node after the index since the first node starts at '1' and the index starts at '0'
       count++
     }
@@ -54,6 +79,41 @@ class LinkedList {
     this.size++
   }
 
+  deleteNodeAtIndex(index) {
+    if (index > 0 && index > this.size) {
+      return
+    }
+
+    let current = this.head
+    let previous
+    let count = 0
+    while (count < index) {
+      previous = current
+      current = current.next
+      count++
+    }
+    previous.next = current.next
+    this.size--
+  }
+
+  getDataAtIndex(index) {
+    if (index > 0 && index > this.size) {
+      return
+    } else if (index === 0) {
+      console.log(this.head.data)
+    }
+
+    let current = this.head
+    let count = 0
+    while (count < index) {
+      current = current.next
+      count++
+    }
+    console.log(current.data)
+  }
+
+
+
   printListData() {
     let current = this.head //start from beginning
 
@@ -61,6 +121,11 @@ class LinkedList {
       console.log(current.data)
       current = current.next //go to next node
     }
+  }
+
+  clearListData() {
+    this.head = null //removing the initial head removes the entire list
+    this.size = 0
   }
 }
 
@@ -73,5 +138,9 @@ ll.addNoteToFront(300)
 ll.addNodeToBack(400)
 
 ll.insertNodeAtIndex(50, 2)
+
+// ll.getDataAtIndex(2)
+
+ll.deleteNodeAtIndex(2)
 
 ll.printListData()
