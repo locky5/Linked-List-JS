@@ -27,17 +27,31 @@ class LinkedList {
       }
       current.next = new Node(data)
     }
+
+    this.size++
   }
 
-  insertNodeAtIndex(data, index) { //fix this up
-    let current = this.head
+  insertNodeAtIndex(data, index) {
 
-    if (index > 0 && this.head) {
-      for (let i = 0; i < index; i++) {
-        current = current.next
-      }
-      current.next = new Node(data, current.next.next)
+    if (index > 0 && index > this.size) {
+      return
+    } else if (index === 0) {
+      this.head = new Node(data, this.head) //just like inserting it into the front
+      return
     }
+
+    let current = this.head
+    let count = 0
+    let node = new Node(data)
+    while (count < index) {
+      let previous = current //node before the index
+      current = current.next //node after the index since the first node starts at '1' and the index starts at '0'
+      count++
+    }
+    node.next = current //therefore the node after the inserted one is the 'current' node
+    previous.next = node //while the previous node's 'next' points to the new node
+
+    this.size++
   }
 
   printListData() {
