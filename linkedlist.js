@@ -17,17 +17,26 @@ class LinkedList {
   }
 
   addNodeToBack(data) {
-    let node = new Node(data)
+    let current = this.head //initialize to beginning
+
+    if (!this.head) { //if the list is empty...
+      this.head = new Node(data)
+    } else {
+      while (current.next) {
+        current = current.next //move along the list
+      }
+      current.next = new Node(data)
+    }
+  }
+
+  insertNodeAtIndex(data, index) { //fix this up
     let current = this.head
 
-    if (!this.head) { //if it's empty, set head to node
-      this.head = node
-    } else {
-      while (current.next) { //continue on to last node
+    if (index > 0 && this.head) {
+      for (let i = 0; i < index; i++) {
         current = current.next
       }
-      current.next = node //once on last node, set a new 'next' pointer to new node
-      this.size++
+      current.next = new Node(data, current.next.next)
     }
   }
 
@@ -48,5 +57,7 @@ ll.addNoteToFront(200)
 ll.addNoteToFront(300)
 
 ll.addNodeToBack(400)
+
+ll.insertNodeAtIndex(50, 2)
 
 ll.printListData()
