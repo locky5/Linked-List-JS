@@ -27,6 +27,7 @@ class LinkedList {
         current = current.next
       }
       current.next = node //once on last node, set a new 'next' pointer to new node
+      this.size++
     }
   }
 
