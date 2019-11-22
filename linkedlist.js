@@ -114,6 +114,32 @@ class LinkedList {
 
 
 
+  reverseList() {
+    let current = this.head
+
+    while (current.next) {
+      current = current.next
+    }
+
+    let tail = current //last node of list
+
+    let node = this.head //front of the list
+    this.head = tail //set beginning of list to the last node (to go backwards)
+    tail = node //the last node is now the new head
+
+    let previous = null
+    let next
+
+    for (let i = 0; i < this.size; i++) {
+      next = node.next
+      node.next = previous //initially null, but once the node is shifted over, become the previous node
+      previous = node //set previous equal to the current node
+      node = next //head is moved to the next node pointed at
+    }
+  }
+
+
+
   printListData() {
     let current = this.head //start from beginning
 
@@ -134,13 +160,13 @@ let ll = new LinkedList()
 ll.addNoteToFront(100)
 ll.addNoteToFront(200)
 ll.addNoteToFront(300)
-
 ll.addNodeToBack(400)
-
 ll.insertNodeAtIndex(50, 2)
 
 // ll.getDataAtIndex(2)
 
-ll.deleteNodeAtIndex(2)
+// ll.deleteNodeAtIndex(2)
+
+ll.reverseList()
 
 ll.printListData()
